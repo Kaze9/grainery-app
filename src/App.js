@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './grainery-logotype.png';
 import './App.css';
+import post from './post';
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
         
         
       </div>
-
     
+      <post />
     
     {/* Posts */}
     {/* Posts */}
