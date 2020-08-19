@@ -14,11 +14,10 @@ function App() {
           alt="The Grainery"
         />
         
-        <h1>Hello</h1>
         
       </div>
 
-    {/* Header */}
+    
     
     {/* Posts */}
     {/* Posts */}
