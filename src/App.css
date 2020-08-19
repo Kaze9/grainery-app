@@ -10,4 +10,5 @@
 .app__headerImage {
   background-color: white;
   object-fit: contain;
+  width: 20%;
 }

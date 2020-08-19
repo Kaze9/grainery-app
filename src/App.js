@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from './grainery-logotype.png';
 import './App.css';
 
 function App() {
@@ -9,8 +10,8 @@ function App() {
       <div className="app__header">
         <img
           className="app__headerImage"
-          src="."
-          alt=""
+          src={logo}
+          alt="The Grainery"
         />
         
         <h1>Hello</h1>
