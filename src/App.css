@@ -4,13 +4,13 @@
 
 .app {
   background-color: #fafafa;
-  height: 100vh;
 }
 
 .app__headerImage {
   padding: 20px;
   object-fit: contain;
   width: 16%;
+  min-width: 160px;
 }
 
 .app__header{
