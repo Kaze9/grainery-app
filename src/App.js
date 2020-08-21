@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './grainery-logotype.png';
 import './App.css';
 import Post from './Post';
+import { db} from './firebase';
 
 function App() {
+  const [posts, setPosts] = useState([]);
+
+    // useEffect -> runs a piece of code based on a specific condition
+
+    useEffect(() => {
+      // this is where the code runs
+      db.collection('posts').onSnapshot(snapshot => {
+        // every time a new post is added, this code fires...
+        setPosts(snapshot.docs.map(doc => ({
+          id: doc.id,
+          post: doc.data()
+        })));
+      })
+    }, []);
+
   return (
     <div className="App">
       <div className="app__header">
@@ -14,9 +30,12 @@ function App() {
         />
       </div>
     
-      <Post username="Allison" caption="Another great shot" imageUrl="https://i.redd.it/sfw9ifrn5n751.jpg" />
-      <Post username="Kylespergallon" caption="second comment" imageUrl="https://i.redd.it/56bahl3rk9k41.jpg" />
-      <Post username="DonnyDrama" caption="thirrd comment" imageUrl="https://i.redd.it/56bahl3rk9k41.jpg" />
+
+      {
+        posts.map(({id, post}) => (
+          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
+        ))
+      }
 
     </div>
   );
