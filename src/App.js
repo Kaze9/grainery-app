@@ -66,7 +66,7 @@ function App() {
 
     useEffect(() => {
       // this is where the code runs
-      db.collection('posts').onSnapshot(snapshot => {
+      db.collection('posts').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
         // every time a new post is added, this code fires...
         setPosts(snapshot.docs.map(doc => ({
           id: doc.id,
@@ -102,12 +102,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* Render out image upload */}
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ): (
-        <h3>You must log in first to post.</h3>
-      )}
+      
       
 
       {/* User authentication modals */}
@@ -197,18 +192,20 @@ function App() {
           src={logo}
           alt="The Grainery"
         />
+
+        {/* User Authentication  */}
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>
+          ): (
+          <div className="app__loginContainer">
+            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+          </div>
+          )
+        }
       </div>
     
-      {/* User Authentication  */}
-      {user ? (
-        <Button onClick={() => auth.signOut()}>Logout</Button>
-      ): (
-        <div className="app__loginContainer">
-          <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-          <Button onClick={() => setOpen(true)}>Sign Up</Button>
-        </div>
-      )
-      }
+      
 
       <center>
         {
@@ -217,6 +214,13 @@ function App() {
           ))
         }
       </center>
+
+      {/* Render out image upload */}
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ): (
+        <h3>You must log in first to post.</h3>
+      )}
     </div>
   );
 }
