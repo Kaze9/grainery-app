@@ -93,8 +93,8 @@ function App() {
       event.preventDefault();
       
       auth
-      .SignInWithEmailAndPassword(email, password)
-      .catch((error) => alert(error.message))
+        .signInWithEmailAndPassword(email, password)
+        .catch((error) => alert(error.message))
 
       setOpenSignIn(false);
     }
@@ -111,7 +111,7 @@ function App() {
               <img
                 className="app__headerImage"
                 src={logo}
-                alt="The Grainer"
+                alt="The Grainery"
                 />
             </center>
 
@@ -136,7 +136,7 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               
-              <Button type="submit" onclick={signUp}>Sign Up</Button>
+              <Button type="submit" onClick={signUp}>Sign Up</Button>
               
           </form>
           
@@ -173,7 +173,7 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               
-              <Button type="submit" onclick={signIn}>Sign In</Button>
+              <Button type="submit" onClick={signIn}>Sign In</Button>
               
           </form>
           
@@ -190,11 +190,11 @@ function App() {
       </div>
     
       {user ? (
-        <Button onClick={() => auth.signOut}>Logout</Button>
+        <Button onClick={() => auth.signOut()}>Logout</Button>
       ): (
         <div className="app__loginContainer">
-          <Button onclick={() => setOpenSignIn(true)}>Sign In</Button>
-          <Button onclick={() => setOpen(true)}>Sign Up</Button>
+          <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+          <Button onClick={() => setOpen(true)}>Sign Up</Button>
         </div>
       )
       }
