@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-
+  const [openSignIn, setOpenSignIn] = useState(false);
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -77,16 +77,27 @@ function App() {
     const signUp = (event) => {
       event.preventDefault();
 
-      auth.createUserWithEmailAndPassword(email, password)
+      auth
+      .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         return authUser.user.updateProfile({ 
           displayName: username,
         })
       })
       .catch((error) => alert(error.message));
+
+      setOpen(false);
     }
 
+    const signIn = (event) => {
+      event.preventDefault();
+      
+      auth
+      .SignInWithEmailAndPassword(email, password)
+      .catch((error) => alert(error.message))
 
+      setOpenSignIn(false);
+    }
 
   return (
     <div className="App">
@@ -125,7 +136,45 @@ function App() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               
-              <Button type="submit" onClick={signUp}>Sign Up</Button>
+              <Button type="submit" onclick={signUp}>Sign Up</Button>
+              
+          </form>
+          
+          
+        </div>
+      </Modal>
+
+      <Modal
+        open={openSignIn}
+        onClose={() => setOpenSignIn(false)}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <form className="app__signup">
+            <center>
+              <img
+                className="app__headerImage"
+                src={logo}
+                alt="The Grainery"
+                />
+            </center>
+
+          
+              <Input
+                placeholder="email"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+
+              <Input 
+                placeholder="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              
+              <Button type="submit" onclick={signIn}>Sign In</Button>
+              
           </form>
           
           
@@ -140,7 +189,15 @@ function App() {
         />
       </div>
     
-    <Button onClick={() => setOpen(true)}>Sign Up</Button>
+      {user ? (
+        <Button onClick={() => auth.signOut}>Logout</Button>
+      ): (
+        <div className="app__loginContainer">
+          <Button onclick={() => setOpenSignIn(true)}>Sign In</Button>
+          <Button onclick={() => setOpen(true)}>Sign Up</Button>
+        </div>
+      )
+      }
 
       {
         posts.map(({id, post}) => (
